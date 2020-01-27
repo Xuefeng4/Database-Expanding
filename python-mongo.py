@@ -68,7 +68,7 @@ print('finished adding new field into the database')
 # Step 6, create a new collection of subscription, generate sample data and create reference
 # between the two collections
 
-# the date when subsciprtion starts
+# the date when subscription starts
 start_point = datetime(2020,1,1)
 #number of data in collection account
 num = db.account.count_documents({})
@@ -83,22 +83,22 @@ for i in range(500):
     #randomly generate the data when user begin to subscribe
     start_date = start_point + timedelta(days=random.randint(1,25))
 
-    #take a year as each subsciprtion period
+    #take a year as each subscription period
     expire_date = start_date + timedelta(days=365)
 
     sub_sample = {
         "start_date":start_date,
         "expire_date":expire_date,
     }
-    # create a new collection called subsciprtion in database and store data in it
+    # create a new collection called subscription in database and store data in it
     sub_result = db.subscription.insert_one(sub_sample)
 
     # create reference between the two collection by inserting the subscription id
-    #into the subscription field of the account collection
+    # into the subscription field of the account collection
     db.account.update_one({"_id":random_user[0]["_id"]},{ "$push":{"subscription":sub_result.inserted_id} })
     print('User {0} begins to subscribe'.format(random_user[0]["user_name"]))
 
-# Step 7, simulate a scenario when a we want to check is a user is just a visitor or prime member
+# Step 7, simulate a scenario when we want to check if a user is just a visitor or prime member
 for i in range(200):
 
     # randomly get a user
@@ -108,7 +108,7 @@ for i in range(200):
     # get the user name
     random_user_name = random_user[0]["user_name"]
 
-    # get the subsciprtion data
+    # get the subscription data
     sub_ids = random_user[0]["subscription"]
 
     #check if the expire date passed and print result
