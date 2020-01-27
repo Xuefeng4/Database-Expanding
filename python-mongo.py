@@ -92,11 +92,15 @@ for i in range(500):
     sub_result = db.subscription.insert_one(sub_sample)
 
     # create reference between the two collection by inserting the subscription id
-    #into the subscription field of the account collection
+    # into the subscription field of the account collection
     db.account.update_one({"_id":random_user[0]["_id"]},{ "$push":{"subscription":sub_result.inserted_id} })
     print('User {0} begins to subscribe'.format(random_user[0]["user_name"]))
 
+<<<<<<< HEAD
 # Step 7, simulate a scenario when a we want to check if a user is just a visitor or prime member
+=======
+# Step 7, simulate a scenario when we want to check if a user is just a visitor or prime member
+>>>>>>> 75569b605f09a5db005ab918a4fa975181550088
 for i in range(200):
 
     # randomly get a user
